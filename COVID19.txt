@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+corona_dataset_csv=pd.read_csv("Datasets/covid19_Confirmed_dataset.csv")
+corona_dataset_csv.head()
+
+corona_dataset_csv.shape
+
+df=corona_dataset_csv.drop(["Lat","Long"],axis=1)
+df.head()
+
+corona_dataset_csv.groupby("Country/Region")
+
+corona_dataset_aggregated=corona_dataset_csv.groupby("Country/Region").sum()
+corona_datasets_aggregated.head()
+
+corona_dataset_aggregated.loc["China"].plot()
+corona_dataset_aggregated.loc["China"].plot()
+plt.legend()
+
+corona_dataset_aggregated.loc["China"][:3].plot()
+
+corona_dataset_aggregated.loc["China"].diff().plot()
+corona_dataset_aggregated.loc["China"].diff().max()
+
+countries=list(corona_dataset_aggregated.index)
+max_infection_rates=[]
+for c in countries:
+    max_infection_rate.append(corona_dataset_aggregated.loc(c).diff().max())
+corona_dataset_aggregated["max_infection_rate"]=max_infection_rate
+corona_dataset_aggregated.head()
+
+corona_data=pd.Dataframe(corona_dataset_aggregated["max_infection_rate"])
+corona_data.head()
+
+happiness_dataset_csv=pd.read_csv("Datasets/worldwide_happiness_report.csv")
+happiness_dataset.head()
+
+happiness_dataset_csv.drop(["Overall rank","Score","Generosity"],axis=1)
+happiness_dataset_csv.head()
+
+happiness_dataset_csv.set_index("Country or region")
+happiness_dataset_csv.head()
+
+data=corona_data.join(happiness_dataset_csv,how="inner")
+data.head()
+
+data.corr()
+
+X=data["GDP per capita"]
+Y=data["max_infection_rate]
+sns.scatterplot(X,Y)
+
+
+
+
+
